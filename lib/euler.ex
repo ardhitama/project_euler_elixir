@@ -1,11 +1,12 @@
 defmodule Euler do
   use Application
+  alias Math, as: M
 
   def start(_type, _args) do
     eul1
     eul2
     eul3
-    Eul.Supervisor.start_link [], strategy: :one_for_one
+    Supervisor.start_link [], strategy: :one_for_one
   end
 
   def eul1 do
@@ -16,19 +17,11 @@ defmodule Euler do
     """
     rem3or5? = &(rem(&1, 3) == 0 or rem(&1, 5) ==0)
     1..999 |>
-    Enum.map(&(&1)) |>
+    #Enum.map(&(&1)) |>
     Enum.filter(rem3or5?) |>
     #Enum.join(" ") |>
     Enum.sum |>
     IO.puts
-  end
-
-  def fib(a, _, 0 ) do
-    a
-  end
-
-  def fib(a, b, n) do
-    fib(b, a+b, n-1)
   end
 
   def eul2 do
@@ -39,25 +32,7 @@ defmodule Euler do
     By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
     """
 
-    IO.puts fib(1,1,10)
-  end
-
-  def largest_prime(n, i) do
-    cond do
-      rem(n,i) == 0 -> largest_prime(n, i+6)
-      rem(n, i+2) == 0 -> largest_prime(n, i+6)
-    end
-    n
-  end
-
-  def largest_prime(n) do
-    cond do
-    n <= 1 -> -1
-    n <= 3 -> n
-    rem(n, 2) == 0 or rem(n,3) == 0 -> -1
-    true -> largest_prime(n, 0)
-    end
-
+    IO.puts M.fib(1,1,10)
   end
 
   def eul3 do
@@ -66,6 +41,7 @@ defmodule Euler do
     The prime factors of 13195 are 5, 7, 13 and 29.
     What is the largest prime factor of the number 600851475143 ?
     """
-    largest_prime(13195)
+    #M.prime_factors_slow_print(600851475143)
+    IO.puts M.max_prime_factors(600851475143)
   end
 end
