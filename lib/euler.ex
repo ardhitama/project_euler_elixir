@@ -6,6 +6,7 @@ defmodule Euler do
     eul1
     eul2
     eul3
+    eul7
     Supervisor.start_link [], strategy: :one_for_one
   end
 
@@ -43,5 +44,14 @@ defmodule Euler do
     """
     #M.prime_factors_slow_print(600851475143)
     IO.puts M.max_prime_factors(600851475143)
+  end
+
+  def eul7 do
+    IO.write "eul7: "
+    """
+    By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+    What is the 10 001st prime number?
+    """
+    IO.puts M.prime_seq(10001)
   end
 end
